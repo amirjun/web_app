@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy             
 app = Flask(__name__, template_folder = '', static_folder='')   
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -19,7 +19,7 @@ def second():
 
 @app.route('/registr', methods=('GET', 'POST'))
 def registr():
-    if request.metod == 'POST':
+    if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
         name = request.form['name']
@@ -29,7 +29,16 @@ def registr():
             email = email, password = password, name = name, age = age, city=city
         )
         print('Данные пользователя собраны!')
+        try:
+            database.session.add(user)
+            database.session.commit()
+        except:
+            database.session.rollback()
+            print('Ошибка записи в бз')
+
     return render_template('registr.html')
+with app.app_context():
+    database.create_all()
     
 
 app.add_url_rule('/', 'index', index)  
