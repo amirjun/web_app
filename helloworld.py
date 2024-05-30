@@ -14,6 +14,17 @@ class User(database.Model):
     name = database.Column(database.String(100))
     age = database.Column(database.Integer)
     city = database.Column(database.String(100))
+
+    notes = database.relationship('Note', backref=database.backref('user', lazy=True))
+
+class Note(database.Model):
+    id = database.Column(database.Integer,primary_key=True)
+    title = database.Column(database.String(100))
+    text = database.Column(database.String(1000))
+
+note1 = Note(title = 'о комариках', text = 'комарики классные, но пчелки лучше')
+
+
 def index():
     return render_template('index.html')
  
@@ -49,6 +60,14 @@ with app.app_context():
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email, password=password).first()
+        if user:
+            global locked_status
+            locked_status = False
+            return redirect('/second')
     return render_template('login.html')
     
 
@@ -61,5 +80,3 @@ if __name__ == "__main__":
     
     app.run(debug=True)
 
-
-request
