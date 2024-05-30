@@ -1,9 +1,12 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy             
 app = Flask(__name__, template_folder = '', static_folder='')   
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 database = SQLAlchemy(app)
+
+locked_status = True
+
 class User(database.Model):
     id = database.Column(database.Integer,primary_key=True)
     email = database.Column(database.String(100), unique=True)
@@ -12,9 +15,13 @@ class User(database.Model):
     age = database.Column(database.Integer)
     city = database.Column(database.String(100))
 def index():
-    return render_template('index.html') 
+    return render_template('index.html')
+ 
 
 def second():
+    global locked_status 
+    if locked_status == True:
+        return redirect('/login')
     return render_template('second.html')
 
 @app.route('/registr', methods=('GET', 'POST'))
@@ -39,11 +46,18 @@ def registr():
     return render_template('registr.html')
 with app.app_context():
     database.create_all()
+
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    return render_template('login.html')
     
 
 app.add_url_rule('/', 'index', index)  
 app.add_url_rule('/second', 'second', second)
-if __name__ == "__main__":
+app.add_url_rule('/registr', 'registr', registr)
+app.add_url_rule('/login', 'login', login)
+
+if __name__ == "__main__":  
     
     app.run(debug=True)
 
