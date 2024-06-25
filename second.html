@@ -7,8 +7,24 @@
 </head>
 <body>
     <h1>Продолжение дальше... </h1>
-    <p>ыбыббыбы аббаба </p>
-    <img src="https://avatars.mds.yandex.net/i?id=39c90bd728d7ba50d14943f50ec11ad0496637f7-12644240-images-thumbs&n=13" alt="">
-    <a href="/">обратно на первую</a>
+    <p class="txtx">ыбыббыбы аббаба </p>
+    <img class="img" src="https://avatars.mds.yandex.net/i?id=39c90bd728d7ba50d14943f50ec11ad0496637f7-12644240-images-thumbs&n=13" alt="">
+    
+    <form method="POST" name="addPost">
+        <p class = 'post-name-naz'>Название поста: <input type='text' name='post-name'></p>
+        <p class = 'post-name-tx'>Текст поста: <textarea name='post-text'></textarea></p>
+        <p class="saveButton"><input class = 'saveButton' type = 'submit' name="Submit" value = 'Сохранить'></p>
+    </form>
+    <section class="posts">
+        {% for post in context['posts'] %}
+            <h3 class='post-title'>{{post['title']}}</h3>
+            <p class='post-text'>{{post['text']}}</p>
+            <form method = 'POST' name="delPost">
+                <input type = 'hidden' name = 'post-id' value = "{{post['id']}}">
+                <input type = 'submit' name= 'Submit' value = 'Удалить'>
+            </form>
+        {% endfor %}
+    </section>
+    <a class="to-main-t" href="/">Главная</a>
 </body>
 </html>

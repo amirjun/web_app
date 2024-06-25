@@ -2,3 +2,83 @@ h1{
    color:crimson;
    text-align: center; 
 }
+
+.login-form, .posts{
+   background-color: lightblue;
+   width: 200px;
+   text-align: center;
+   margin: 0 auto;
+   height: 100%;
+}
+
+.to-main, .login-form-btn, .registr-form-btn, .to-second, .to-main-t{
+   font-family:'Arial';
+   font-size:13px;
+   background-color: rgb(239,239,239);
+   color:black;
+   padding:6px;
+   border:1px solid black;
+   text-decoration:none;
+}
+
+.registr-form{
+   text-align: center;
+   background-color: rgb(83, 136, 153);
+   width: 200px;
+   height: 350px;
+   margin: 0 auto;   
+   color: rgb(253, 229, 13);
+}
+
+.main-nav{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+.post-title{
+   display: flex;
+   font-size: 20px;
+   text-align: center;
+   margin: 0 auto;
+}
+.post-text{
+   font-size: 15px;
+   text-align: center;
+   margin: 0 auto;
+
+}
+.post-name-naz{
+   text-align: center;
+   margin: 0 auto;
+   font-size: 20px;
+   
+}
+.post-name-tx{
+   text-align: center;
+   margin: 0 auto;
+   font-size: 20px;
+
+}
+.saveButton{
+   text-align: center;
+   margin: 0 auto;
+   
+   
+}
+.to-main-t{
+   display: block;
+   margin: 0 auto;
+   width: 150px;
+}
+.img{
+   display: block;
+   width: 200px;
+   height: 200px;
+   margin: 0 auto;
+}
+.txtx{
+   width: 200px;
+   height: 200px;
+   margin: 0 auto;
+   font-size: 25px;
+}
